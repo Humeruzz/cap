@@ -1,0 +1,61 @@
+site_name: CAP — Contrastive Activation Patching
+site_description: Locate and patch language-specific and faithfulness-related neurons in LLMs.
+
+# mkdocs.yml lives at the repo root (not under docs/): MkDocs forbids docs_dir from
+# being the config file's own directory, and mkdocstrings resolves `paths: [src]`
+# relative to this file, so `src/` only works from the root.
+docs_dir: docs
+
+# docs/ also holds a local superpowers/ skill library and a stray patching_summary.csv
+# that are not part of the site; keep them out so `mkdocs build --strict` stays clean.
+exclude_docs: |
+  superpowers/
+  patching_summary.csv
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_root_heading: true
+            show_source: false
+            members_order: source
+
+markdown_extensions:
+  - admonition
+  - tables
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quickstart: quickstart.md
+  - Concepts: concepts.md
+  - Datasets: datasets.md
+  - CLI Reference: cli_reference.md
+  - API:
+    - Core: api/core.md
+    - Data: api/data.md
+    - Experiments: api/experiments.md
+  - Tutorials:
+    - Bring Your Own Data: tutorials/bring_your_own_data.md
+    - New Model: tutorials/new_model.md
+    - Cross-Language Neurons: tutorials/cross_language_neurons.md
+    - SLURM Cluster: tutorials/slurm_cluster.md

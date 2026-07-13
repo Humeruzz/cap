@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cap"
+version = "1.0.0"
+description = "Contrastive Activation Patching — multilingual faithfulness and fact-checking analysis for LLMs"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+readme = "README.md"
+dependencies = [
+    "torch>=2.0,<3",
+    "transformers>=4.30",
+    "datasets>=2.12",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "statsmodels>=0.14",
+    "h5py>=3.8",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "tqdm>=4.65",
+    "Pillow>=9.5",
+    "typer>=0.9",
+    "pandas>=1.5",
+]
+
+[project.optional-dependencies]
+lm-eval = ["lm-eval>=0.4.0"]
+dev = [
+    "pytest>=7",
+    "pytest-cov>=4",
+    "ruff>=0.4",
+    "mypy>=1.8",
+    "pre-commit>=3",
+    "typer[all]>=0.9",
+]
+docs = [
+    "mkdocs>=1.5",
+    "mkdocs-material>=9",
+    "mkdocstrings[python]>=0.24",
+]
+
+[project.scripts]
+cap = "cap.cli.main:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"cap.data" = ["files/*.csv"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.mypy]
+# 3.12: the installed numpy ships PEP 695 `type` statements in its stubs that only
+# parse under a 3.12+ analysis target. Runtime still supports 3.10+ (requires-python
+# and ruff target-version enforce that; annotations are deferred via __future__).
+python_version = "3.12"
+strict = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: marks tests that require a model download (deselect with -m 'not integration')"]
+addopts = "-m 'not integration'"
+
+[tool.coverage.run]
+source = ["src/cap/core", "src/cap/data"]
+# The unit-coverage gate measures deterministic, pure-logic modules. Modules whose primary
+# job is to drive a language model or download benchmark data can't be exercised without a
+# live model/network, so they are excluded here (capture.py is covered by the integration
+# smoke test instead; contrasts.py is unused legacy slated for removal in Phase 7).
+omit = [
+    "*/tests/*",
+    "*/cap/core/capture.py",
+    "*/cap/core/evaluation.py",
+    "*/cap/core/evaluation_harness.py",
+    "*/cap/data/builtin_datasets.py",
+    "*/cap/data/contrasts.py",
+]
+
+[tool.coverage.report]
+fail_under = 80

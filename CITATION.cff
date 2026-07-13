@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "CAP: Contrastive Activation Patching for Multilingual Faithfulness Analysis"
+version: 1.0.0
+date-released: 2026-07-03
+authors:
+  - family-names: Semenikhin
+    given-names: Aleksandr
+license: MIT
+repository-code: "https://github.com/Humeruzz/cap"
