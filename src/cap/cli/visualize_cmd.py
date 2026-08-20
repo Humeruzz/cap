@@ -6,7 +6,7 @@ from typing import Optional, List
 import typer
 
 from cap.cli._manifest import read_manifest
-from cap.cli._options import parse_resolutions
+from cap.cli._options import parse_experiment_paths, parse_resolutions
 
 
 def visualize(
@@ -14,8 +14,13 @@ def visualize(
     experiment: Optional[Path] = typer.Option(
         None, "--experiment", help="Single experiment dir (for --mode stats)."
     ),
-    experiments: Optional[List[Path]] = typer.Option(
-        None, "--experiments", help="Multiple experiment dirs (for --mode similarity)."
+    experiments: Optional[List[str]] = typer.Option(
+        None,
+        "--experiments",
+        help=(
+            "Experiment dirs for --mode similarity. Comma-separate them (A,B) or repeat "
+            "the flag (--experiments A --experiments B)."
+        ),
     ),
     mode: str = typer.Option("stats", "--mode", help="'stats' or 'similarity'."),
     output: Optional[Path] = typer.Option(
@@ -54,16 +59,25 @@ def visualize(
         typer.echo(f"Interactive HTML: {html_path}")
 
     elif mode == "similarity":
-        if not experiments or len(experiments) < 2:
-            typer.echo("--mode similarity requires at least two --experiments paths.", err=True)
+        exp_paths = parse_experiment_paths(experiments)
+        if len(exp_paths) < 2:
+            typer.echo(
+                "--mode similarity requires at least two experiment dirs, e.g. "
+                "--experiments A,B (or --experiments A --experiments B).",
+                err=True,
+            )
             raise typer.Exit(code=1)
         from cap.plot.similarity_html import create_similarity_viewer
         from cap.utils.h5_utils import H5Store
 
-        out = output or experiments[0].parent / "similarity"
-        labeled_stats = [
-            (p.name, H5Store.load_statistics(p / "statistics.h5")) for p in experiments
-        ]
+        out = output or exp_paths[0].parent / "similarity"
+        labeled_stats = []
+        for p in exp_paths:
+            stats = H5Store.load_statistics(p / "statistics.h5")
+            if stats is None:
+                typer.echo(f"No statistics.h5 found in {p}.", err=True)
+                raise typer.Exit(code=1)
+            labeled_stats.append((p.name, stats))
         html_path = create_similarity_viewer(labeled_stats, out)
         typer.echo(f"Similarity HTML: {html_path}")
     else:

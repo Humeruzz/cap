@@ -57,7 +57,7 @@ Select significant neurons, scale/ablate them, and evaluate on a benchmark.
 | `--benchmark TEXT` | — | Built-in benchmark: `gsm8k`, `mmlu`, `hellaswag`. |
 | `--d-threshold FLOAT` | `1.0` | Minimum Cohen's d for a neuron to be selected. |
 | `--std-threshold FLOAT` | `0.1` | Minimum pooled std for a neuron to be selected. |
-| `--scale FLOAT` | `0.0` | Factor applied to selected neurons (`0.0` ablates). |
+| `--scale FLOAT` | `0.0` | Multiplicative factor on selected neurons: `0.0` ablates, `1.0` leaves them unchanged, `>1` amplifies. Use `0.0` for a causal ablation test, or a value near `1` (e.g. `1.05`) to **steer** the behaviour — see [Concepts → Steering](concepts.md#steering). |
 | `--n-eval-samples INTEGER` | `100` | Benchmark examples to evaluate on. |
 
 Provide exactly one of `--benchmark` or `--evaluator`. The built-in benchmarks require the
@@ -70,7 +70,7 @@ Render the interactive stats viewer, or the cross-language similarity viewer.
 | Flag | Default | Description |
 |---|---|---|
 | `--experiment PATH` | — | Single experiment dir (for `--mode stats`). |
-| `--experiments PATH...` | — | Two or more experiment dirs (for `--mode similarity`). |
+| `--experiments PATH` | — | Experiment dirs for `--mode similarity`. Comma-separate them (`--experiments A,B`) or repeat the flag (`--experiments A --experiments B`); the two forms can be mixed. Space-separated values do **not** work — the shell splits them before the CLI sees them. A path containing a comma must use the repeated form. |
 | `--mode TEXT` | `stats` | `stats` or `similarity`. |
 | `--output PATH` | — | Output dir for the similarity HTML (`--mode similarity` only). |
 | `--downsample TEXT` | `32,64,128` | Comma-separated heatmap resolutions for the stats HTML (e.g. `32,64,128`). |
