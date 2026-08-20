@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional, List
 
 import typer
 
@@ -11,10 +10,10 @@ from cap.cli._options import parse_experiment_paths, parse_resolutions
 
 def visualize(
     ctx: typer.Context,
-    experiment: Optional[Path] = typer.Option(
+    experiment: Path | None = typer.Option(
         None, "--experiment", help="Single experiment dir (for --mode stats)."
     ),
-    experiments: Optional[List[str]] = typer.Option(
+    experiments: list[str] | None = typer.Option(
         None,
         "--experiments",
         help=(
@@ -23,7 +22,7 @@ def visualize(
         ),
     ),
     mode: str = typer.Option("stats", "--mode", help="'stats' or 'similarity'."),
-    output: Optional[Path] = typer.Option(
+    output: Path | None = typer.Option(
         None, "--output", help="Output directory for similarity HTML (--mode similarity only)."
     ),
     downsample: str = typer.Option(

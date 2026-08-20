@@ -7,8 +7,8 @@ tokenizer — no network, no model download, no lm_eval. This pins the accuracy 
 and the extract_binary integration exactly.
 """
 
-import torch
 import pytest
+import torch
 
 from cap.core.evaluation import CSVEvaluator, Evaluator
 from cap.data.prompt_templates import FACTUALITY

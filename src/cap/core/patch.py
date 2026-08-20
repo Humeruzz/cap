@@ -111,7 +111,7 @@ class ActivationPatcher:
                 elif len(original_shape) == 2:
                     out = out.squeeze(1)
 
-                return out if rest is None else (out,) + rest
+                return out if rest is None else (out, *rest)
 
             return hook
 

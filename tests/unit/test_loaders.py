@@ -1,4 +1,5 @@
 import pytest
+
 from cap.data.loaders import LabeledDataset, TwoGroupDataset
 
 

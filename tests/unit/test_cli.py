@@ -1,4 +1,5 @@
 from typer.testing import CliRunner
+
 from cap.cli.main import app
 
 runner = CliRunner()

@@ -19,9 +19,7 @@ def _sort_layer_names(layer_names):
         k_lower = k.lower().replace("_", "").replace(".", "")
         if "embed" in k_lower or "rotary" in k_lower:
             input_layers.append(k)
-        elif "lm" in k_lower and "head" in k_lower:
-            output_layers.append(k)
-        elif "norm" in k_lower:
+        elif ("lm" in k_lower and "head" in k_lower) or "norm" in k_lower:
             output_layers.append(k)
         else:
             other_layers.append(k)
@@ -297,7 +295,9 @@ def _build_html(payload, presets):
         f'<td class="col-pair sim-cell" data-pair="{j}"></td>' for j in range(len(pairs))
     )
     rows_html = "\n".join(
-        (
+        # The IIFE binds the two derived values per row; inlining them would recompute
+        # both across several f-string slots.
+        (  # noqa: PLC3002
             lambda short, blk: (
                 f'<tr class="layer-row g{layer_groups[i]}" data-layer="{i}" data-type="{_layer_type(layer)}">'
                 f'<td class="col-layer" title="{layer}">'

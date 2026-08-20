@@ -2,6 +2,7 @@ import warnings
 
 import numpy as np
 import pytest
+
 from cap.core.stats import ActivationStats
 
 

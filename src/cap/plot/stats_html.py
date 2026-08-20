@@ -147,8 +147,8 @@ def apply_colormap(image, cmap_name="inferno"):
 
 def create_grid(layer_images):
     n_layers = len(layer_images)
-    grid_cols = int(math.ceil(math.sqrt(n_layers)))
-    grid_rows = int(math.ceil(n_layers / grid_cols))
+    grid_cols = math.ceil(math.sqrt(n_layers))
+    grid_rows = math.ceil(n_layers / grid_cols)
 
     height = grid_rows * 256
     width = grid_cols * 256
@@ -207,8 +207,8 @@ def visualize_stats(*, stats_results, metric="t_stats", p_threshold=0.05, title=
     layer_groups_stat = group_by_layer(stats_results[metric])
     layer_groups_pval = group_by_layer(stats_results["p_values"])
 
-    int_keys = [k for k in layer_groups_mean.keys() if isinstance(k, int)]
-    str_keys = [k for k in layer_groups_mean.keys() if isinstance(k, str)]
+    int_keys = [k for k in layer_groups_mean if isinstance(k, int)]
+    str_keys = [k for k in layer_groups_mean if isinstance(k, str)]
 
     input_layers = []
     output_layers = []
@@ -218,9 +218,7 @@ def visualize_stats(*, stats_results, metric="t_stats", p_threshold=0.05, title=
         k_lower = k.lower().replace("_", "").replace(".", "")
         if "embed" in k_lower or "rotary" in k_lower:
             input_layers.append(k)
-        elif "lm" in k_lower and "head" in k_lower:
-            output_layers.append(k)
-        elif "norm" in k_lower:
+        elif ("lm" in k_lower and "head" in k_lower) or "norm" in k_lower:
             output_layers.append(k)
         else:
             other_layers.append(k)
@@ -318,8 +316,8 @@ def create_interactive_viewer(
     layer_groups_mean = group_by_layer(stats_results["mean_diff"])
     layer_groups_pooled = group_by_layer(stats_results["pooled_std"])
 
-    int_keys = [k for k in layer_groups_stat.keys() if isinstance(k, int)]
-    str_keys = [k for k in layer_groups_stat.keys() if isinstance(k, str)]
+    int_keys = [k for k in layer_groups_stat if isinstance(k, int)]
+    str_keys = [k for k in layer_groups_stat if isinstance(k, str)]
 
     input_layers = []
     output_layers = []
@@ -329,9 +327,7 @@ def create_interactive_viewer(
         k_lower = k.lower().replace("_", "").replace(".", "")
         if "embed" in k_lower or "rotary" in k_lower:
             input_layers.append(k)
-        elif "lm" in k_lower and "head" in k_lower:
-            output_layers.append(k)
-        elif "norm" in k_lower:
+        elif ("lm" in k_lower and "head" in k_lower) or "norm" in k_lower:
             output_layers.append(k)
         else:
             other_layers.append(k)

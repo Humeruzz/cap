@@ -1,8 +1,10 @@
+from unittest.mock import MagicMock
+from unittest.mock import patch as mock_patch
+
 import numpy as np
+import pytest
 import torch
 import torch.nn as nn
-import pytest
-from unittest.mock import MagicMock, patch as mock_patch
 
 
 def _bound_patcher():
@@ -25,8 +27,9 @@ def _bound_patcher():
 
 
 def test_identify_significant_neurons_threshold():
-    from cap.core.patch import ActivationPatcher
     from unittest.mock import MagicMock
+
+    from cap.core.patch import ActivationPatcher
 
     patcher = MagicMock(spec=ActivationPatcher)
     patcher.layer_stats = {
@@ -44,15 +47,16 @@ def test_identify_significant_neurons_threshold():
     patcher.identify_significant_neurons = ActivationPatcher.identify_significant_neurons.__get__(
         patcher
     )
-    targets, info = patcher.identify_significant_neurons(d_threshold=1.0, std_threshold=0.0)
+    targets, _info = patcher.identify_significant_neurons(d_threshold=1.0, std_threshold=0.0)
     assert "layer.0" in targets
     assert "layer.1" not in targets
     assert set(targets["layer.0"]) == {0, 2}
 
 
 def test_hook_scales_output():
-    from cap.core.patch import ActivationPatcher
     from unittest.mock import MagicMock
+
+    from cap.core.patch import ActivationPatcher
 
     patcher = MagicMock(spec=ActivationPatcher)
     patcher.hooks = []
@@ -83,9 +87,11 @@ def test_load_statistics_success(tmp_path):
 
 def test_load_statistics_missing_raises(tmp_path):
     patcher = _bound_patcher()
-    with mock_patch("cap.core.patch.H5Store.load_statistics", return_value=None):
-        with pytest.raises(ValueError, match="No statistics"):
-            patcher.load_statistics(h5_path=tmp_path)
+    with (
+        mock_patch("cap.core.patch.H5Store.load_statistics", return_value=None),
+        pytest.raises(ValueError, match="No statistics"),
+    ):
+        patcher.load_statistics(h5_path=tmp_path)
 
 
 def test_identify_before_load_raises():

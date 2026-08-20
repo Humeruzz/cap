@@ -1,5 +1,4 @@
 import typer
-from typing import Optional
 
 app = typer.Typer(
     name="cap",
@@ -31,7 +30,7 @@ def main(
         "--trust-remote-code",
         help="Allow model repos to execute custom code on download. Only enable for trusted sources.",
     ),
-    version: Optional[bool] = typer.Option(
+    version: bool | None = typer.Option(
         None, "--version", callback=version_callback, is_eager=True, help="Show version and exit."
     ),
 ):
@@ -46,10 +45,10 @@ def _register_subcommands():
     # as `cap capture` (not `cap capture capture`). The universal --seed/--device/
     # --trust-remote-code flags live on the root callback above and reach each command via ctx.
     from cap.cli.capture_cmd import capture
-    from cap.cli.stats_cmd import stats
     from cap.cli.patch_cmd import patch
-    from cap.cli.visualize_cmd import visualize
     from cap.cli.run_cmd import run
+    from cap.cli.stats_cmd import stats
+    from cap.cli.visualize_cmd import visualize
 
     app.command("capture", help="Capture activations from two contrastive groups of prompts.")(
         capture

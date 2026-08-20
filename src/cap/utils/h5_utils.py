@@ -53,7 +53,9 @@ class H5Store:
                 group = f.create_group(condition)
                 group.attrs["n_samples"] = len(activations)
 
-                for i, (sample_acts, sample_texts) in enumerate(zip(activations, texts)):
+                for i, (sample_acts, sample_texts) in enumerate(
+                    zip(activations, texts, strict=False)
+                ):
                     sample_grp = group.create_group(f"sample_{i:03d}")
                     sample_grp.attrs["prompt"] = prompts[i] if i < len(prompts) else ""
                     sample_grp.attrs["n_steps"] = len(sample_acts)
@@ -149,7 +151,7 @@ class H5Store:
                 "n_samples": stored_n_samples,
                 "n_layers": f.attrs.get("n_layers"),
             }
-            for key in f.attrs.keys():
+            for key in f.attrs:
                 if key.startswith("dataset_"):
                     metadata[key] = f.attrs[key]
 
@@ -164,7 +166,7 @@ class H5Store:
         prompts_dict: dict[str, Any] = {}
 
         with h5py.File(h5_path, "r") as f:
-            for condition in f.keys():
+            for condition in f:
                 group = f[condition]
                 activations_dict[condition] = []
                 texts_dict[condition] = []
@@ -186,7 +188,7 @@ class H5Store:
                     for step_idx in range(sample_grp.attrs["n_steps"]):
                         step_grp = sample_grp[f"step_{step_idx}"]
                         step_acts = OrderedDict()
-                        for layer_name in step_grp.keys():
+                        for layer_name in step_grp:
                             original_name = layer_name.replace("_", ".")
                             step_acts[original_name] = step_grp[layer_name][:]
                         sample_acts.append(step_acts)
@@ -205,11 +207,11 @@ class H5Store:
         statistics: dict[str, Any] = {}
 
         with h5py.File(stats_path, "r") as f:
-            for layer_name in f.keys():
+            for layer_name in f:
                 original_name = layer_name.replace("_", ".")
                 statistics[original_name] = {}
                 layer_grp = f[layer_name]
-                for stat_name in layer_grp.keys():
+                for stat_name in layer_grp:
                     dataset = layer_grp[stat_name]
                     if dataset.shape == ():
                         statistics[original_name][stat_name] = dataset[()]

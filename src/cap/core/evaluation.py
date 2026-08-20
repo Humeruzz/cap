@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-import re
 import math
+import re
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Protocol, runtime_checkable
 
+import datasets
 import numpy as np
 import torch
-import datasets
 from datasets import load_dataset
 from torch.nn import functional as F
 from tqdm import tqdm
@@ -242,9 +242,12 @@ class Evaluator:
                     outputs[0][inputs["input_ids"].shape[1] :], skip_special_tokens=True
                 )
                 predicted = response.strip().upper()
-                if predicted and predicted[0] in ["A", "B", "C", "D"]:
-                    if ["A", "B", "C", "D"].index(predicted[0]) == example["answer"]:
-                        correct += 1
+                if (
+                    predicted
+                    and predicted[0] in ["A", "B", "C", "D"]
+                    and ["A", "B", "C", "D"].index(predicted[0]) == example["answer"]
+                ):
+                    correct += 1
                 total += 1
 
             subject_score = correct / total if total > 0 else 0
@@ -361,8 +364,9 @@ class Evaluator:
         gem_task: str = "GEM/web_nlg",
         subset: str = "en",
     ) -> dict[str, float]:
-        import evaluate as hf_evaluate
         import json as _json
+
+        import evaluate as hf_evaluate
 
         if self.verbose:
             print(f"  Evaluating GEM/web_nlg ({n_samples} samples, {n_shots}-shot)...")

@@ -7,5 +7,5 @@ warnings.warn(
     stacklevel=2,
 )
 
-from cap.plot.similarity_html import *  # noqa: F401, F403, E402
+from cap.plot.similarity_html import *  # noqa: F403, E402
 from cap.plot.similarity_html import create_similarity_viewer  # noqa: F401, E402

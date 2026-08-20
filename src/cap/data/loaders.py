@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import random
 from pathlib import Path
-from typing import Union
 
 import pandas as pd
 
@@ -32,14 +31,14 @@ class LabeledDataset:
     @classmethod
     def from_csv(
         cls,
-        path: Union[str, Path],
+        path: str | Path,
         *,
         text_col: str,
         label_col: str,
-        group_a_label: Union[int, str] = 1,
+        group_a_label: int | str = 1,
         n_samples: int = 0,
         seed: int = 42,
-    ) -> "LabeledDataset":
+    ) -> LabeledDataset:
         """
         Parameters
         ----------
@@ -88,13 +87,13 @@ class TwoGroupDataset:
     @classmethod
     def from_csv_pair(
         cls,
-        path_a: Union[str, Path],
-        path_b: Union[str, Path],
+        path_a: str | Path,
+        path_b: str | Path,
         *,
         text_col: str,
         n_samples: int = 0,
         seed: int = 42,
-    ) -> "TwoGroupDataset":
+    ) -> TwoGroupDataset:
         """
         Parameters
         ----------

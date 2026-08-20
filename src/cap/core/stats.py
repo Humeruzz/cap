@@ -24,8 +24,8 @@ def _ttest_elementwise(
     t_stats = np.zeros(mean_diff_shape)
     p_values = np.ones(mean_diff_shape)
     for idx in np.ndindex(mean_diff_shape):
-        vals1 = group1_array[(slice(None),) + idx]
-        vals2 = group2_array[(slice(None),) + idx]
+        vals1 = group1_array[(slice(None), *idx)]
+        vals2 = group2_array[(slice(None), *idx)]
         if np.var(vals1) + np.var(vals2) > 1e-10:
             t, p = stats.ttest_ind(vals1, vals2)
             t_stats[idx] = t
@@ -40,8 +40,8 @@ def _mannwhitney_elementwise(
     u_stats = np.zeros(mean_diff_shape)
     p_values = np.ones(mean_diff_shape)
     for idx in np.ndindex(mean_diff_shape):
-        vals1 = group1_array[(slice(None),) + idx]
-        vals2 = group2_array[(slice(None),) + idx]
+        vals1 = group1_array[(slice(None), *idx)]
+        vals2 = group2_array[(slice(None), *idx)]
         if len(np.unique(np.concatenate([vals1, vals2]))) > 1:
             u, p = stats.mannwhitneyu(vals1, vals2, alternative="two-sided")
             u_stats[idx] = u

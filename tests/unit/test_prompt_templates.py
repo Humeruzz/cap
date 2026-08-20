@@ -1,5 +1,6 @@
 import pytest
-from cap.data.prompt_templates import PromptTemplate, PROMPT_TYPES, FACTUALITY, RAW
+
+from cap.data.prompt_templates import FACTUALITY, PROMPT_TYPES, RAW, PromptTemplate
 
 
 def test_apply_factuality():

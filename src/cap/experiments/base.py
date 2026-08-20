@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from cap.core.patch import ActivationPatcher
 from cap.core.evaluation import Evaluator
+from cap.core.patch import ActivationPatcher
 
 
 class BaseExperiment:

@@ -1,5 +1,6 @@
-import torch
 from unittest.mock import MagicMock
+
+import torch
 
 
 def test_extract_last_token_3d():

@@ -30,7 +30,7 @@ lm-eval = ["lm-eval>=0.4.0"]
 dev = [
     "pytest>=7",
     "pytest-cov>=4",
-    "ruff>=0.4",
+    "ruff>=0.16.3,<0.17",
     "mypy>=1.8",
     "pre-commit>=3",
     "typer[all]>=0.9",
@@ -53,6 +53,27 @@ where = ["src"]
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+
+[tool.ruff.lint]
+# Declared explicitly on purpose: with no `select`, the active rule set is whatever the
+# installed ruff happens to default to, so a ruff release can turn CI red on its own
+# (0.15 -> 0.16 did exactly that). CI pins the ruff version to match.
+select = ["E4", "E7", "E9", "F", "I", "UP", "B", "SIM", "BLE", "RUF", "PLC"]
+ignore = [
+    # `typer.Option(...)` / `typer.Argument(...)` in argument defaults is the required
+    # Typer idiom, not the mutable-default bug B008 exists to catch.
+    "B008",
+    # The CLI defers imports into command bodies on purpose: it keeps `cap --help` off the
+    # torch/transformers import path and avoids cycles in subcommand registration.
+    "PLC0415",
+    # The HTML viewers deliberately emit typographic characters (U+2212 MINUS SIGN, ×) that
+    # these rules read as ambiguous look-alikes.
+    "RUF001",
+    "RUF002",
+    # Rendering and answer-parsing fall back to a default on any failure by design; narrowing
+    # these handlers is a behaviour change, not a lint fix.
+    "BLE001",
+]
 
 [tool.mypy]
 # 3.12: the installed numpy ships PEP 695 `type` statements in its stubs that only

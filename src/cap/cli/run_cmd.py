@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
 
 import typer
 
@@ -10,13 +9,13 @@ def run(
     ctx: typer.Context,
     model: str = typer.Option(..., "--model"),
     output: Path = typer.Option(..., "--output"),
-    data: Optional[Path] = typer.Option(None, "--data"),
-    text_column: Optional[str] = typer.Option(None, "--text-column"),
-    label_column: Optional[str] = typer.Option(None, "--label-column"),
-    group_a: Optional[Path] = typer.Option(None, "--group-a"),
-    group_b: Optional[Path] = typer.Option(None, "--group-b"),
-    type_: Optional[str] = typer.Option(None, "--type"),
-    prompt: Optional[str] = typer.Option(None, "--prompt"),
+    data: Path | None = typer.Option(None, "--data"),
+    text_column: str | None = typer.Option(None, "--text-column"),
+    label_column: str | None = typer.Option(None, "--label-column"),
+    group_a: Path | None = typer.Option(None, "--group-a"),
+    group_b: Path | None = typer.Option(None, "--group-b"),
+    type_: str | None = typer.Option(None, "--type"),
+    prompt: str | None = typer.Option(None, "--prompt"),
     n_samples: int = typer.Option(0, "--n-samples"),
     skip_viz: bool = typer.Option(False, "--skip-viz"),
     downsample: str = typer.Option(

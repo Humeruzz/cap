@@ -6,11 +6,11 @@ pytestmark = pytest.mark.integration
 @pytest.fixture(scope="session")
 def gpt2_run(tmp_path_factory):
     """Run cap capture + stats on gpt2 with 5 samples per group. CPU only."""
+    import importlib.resources as res
+
     from cap.data.loaders import LabeledDataset
     from cap.data.prompt_templates import FACTUALITY
     from cap.experiments.capture import CaptureExperiment
-
-    import importlib.resources as res
 
     csv_path = res.files("cap.data.files") / "english_smol_with_gen.csv"
 
@@ -38,8 +38,8 @@ def test_h5_files_exist(gpt2_run):
 
 
 def test_manifest_is_valid(gpt2_run):
-    from cap.cli._manifest import write_manifest, read_manifest
     import cap
+    from cap.cli._manifest import read_manifest, write_manifest
 
     write_manifest(
         gpt2_run,
@@ -60,6 +60,6 @@ def test_statistics_have_expected_layers(gpt2_run):
 
     stats = H5Store.load_statistics(gpt2_run / "statistics.h5")
     assert len(stats) > 0
-    for layer_name, layer_stats in stats.items():
+    for _layer_name, layer_stats in stats.items():
         assert "t_stats" in layer_stats
         assert "significant" in layer_stats

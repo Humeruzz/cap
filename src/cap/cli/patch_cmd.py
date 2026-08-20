@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
 
 import typer
 
@@ -14,10 +13,10 @@ def patch(
     experiment: Path = typer.Option(
         ..., "--experiment", help="Experiment directory from cap capture."
     ),
-    evaluator_path: Optional[str] = typer.Option(
+    evaluator_path: str | None = typer.Option(
         None, "--evaluator", help="Custom evaluator as 'module::ClassName'."
     ),
-    benchmark: Optional[str] = typer.Option(
+    benchmark: str | None = typer.Option(
         None,
         "--benchmark",
         help="Built-in benchmark (see BUILTIN_EVALUATORS): gsm8k, mmlu, hellaswag.",

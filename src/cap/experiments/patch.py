@@ -122,17 +122,24 @@ class PatchingExperiment(BaseExperiment):
     def run(
         self,
         *,
-        scale_factors=[0.0, 0.5, 1.0, 1.5, 2.0],
-        d_thresholds=[0.0, 0.5, 1.0, 1.5, 2.0],
-        std_thresholds=[0.0, 0.1, 0.5, 1.0],
+        scale_factors=None,
+        d_thresholds=None,
+        std_thresholds=None,
         n_eval_samples=100,
-        benchmarks=["gsm8k", "hellaswag", "mmlu"],
+        benchmarks=None,
         evaluator=None,
         load_if_exists=True,
         save_checkpoints=True,
         smart_merge=True,
         results_subdir="patching_results",
     ) -> dict[str, Any]:
+        # Defaults are built per call: these lists end up stored in the results dict, so a
+        # shared mutable default could be aliased across runs.
+        scale_factors = [0.0, 0.5, 1.0, 1.5, 2.0] if scale_factors is None else scale_factors
+        d_thresholds = [0.0, 0.5, 1.0, 1.5, 2.0] if d_thresholds is None else d_thresholds
+        std_thresholds = [0.0, 0.1, 0.5, 1.0] if std_thresholds is None else std_thresholds
+        benchmarks = ["gsm8k", "hellaswag", "mmlu"] if benchmarks is None else benchmarks
+
         output_path = self.output_path / results_subdir
         output_path.mkdir(parents=True, exist_ok=True)
 

@@ -240,7 +240,11 @@ class CaptureExperiment:
         correct_acts, correct_texts, correct_prompts = [], [], []
         incorrect_acts, incorrect_texts, incorrect_prompts = [], [], []
 
-        for acts, texts, prompt, expected in zip(all_acts, all_texts, prompts, answers):
+        # strict=False keeps the existing behaviour (stop at the shortest) explicit rather
+        # than raising on a length mismatch, which published runs relied on.
+        for acts, texts, prompt, expected in zip(
+            all_acts, all_texts, prompts, answers, strict=False
+        ):
             predicted = extract_fn(texts[-1])
             if self._answers_match(predicted, expected):
                 correct_acts.append(acts)

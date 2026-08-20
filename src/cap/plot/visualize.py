@@ -66,8 +66,8 @@ def apply_colormap(image):
 
 def create_grid(layer_images):
     n_layers = len(layer_images)
-    grid_cols = int(math.ceil(math.sqrt(n_layers)))
-    grid_rows = int(math.ceil(n_layers / grid_cols))
+    grid_cols = math.ceil(math.sqrt(n_layers))
+    grid_rows = math.ceil(n_layers / grid_cols)
 
     height = grid_rows * 256
     width = grid_cols * 256
@@ -144,8 +144,8 @@ def add_text_overlay(image, step_num, current_text, prev_text=None):
 def visualize_step(step_activations, step_num, current_text=None, prev_text=None):
     layer_groups = group_by_layer(step_activations)
 
-    int_keys = [k for k in layer_groups.keys() if isinstance(k, int)]
-    str_keys = [k for k in layer_groups.keys() if isinstance(k, str)]
+    int_keys = [k for k in layer_groups if isinstance(k, int)]
+    str_keys = [k for k in layer_groups if isinstance(k, str)]
 
     input_layers = []
     output_layers = []
@@ -156,9 +156,7 @@ def visualize_step(step_activations, step_num, current_text=None, prev_text=None
         k_orig = k
         if "embed" in k_lower or "rotary" in k_lower:
             input_layers.append(k_orig)
-        elif "lm" in k_lower and "head" in k_lower:
-            output_layers.append(k_orig)
-        elif "norm" in k_lower:
+        elif ("lm" in k_lower and "head" in k_lower) or "norm" in k_lower:
             output_layers.append(k_orig)
         else:
             other_layers.append(k_orig)

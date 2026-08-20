@@ -1,5 +1,6 @@
 import pytest
-from cap.cli._manifest import write_manifest, read_manifest
+
+from cap.cli._manifest import read_manifest, write_manifest
 
 
 def test_write_and_read_round_trip(tmp_path):

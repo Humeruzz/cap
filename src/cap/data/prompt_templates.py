@@ -16,7 +16,7 @@ class PromptTemplate:
         return f"PromptTemplate({self._template!r})"
 
     @classmethod
-    def from_dict(cls, d: dict) -> "PromptTemplate":
+    def from_dict(cls, d: dict) -> PromptTemplate:
         return cls(d["template"])
 
 

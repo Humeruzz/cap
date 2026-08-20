@@ -2,15 +2,14 @@ from __future__ import annotations
 
 import sys
 from pathlib import Path
-from typing import Optional
 
 import typer
 
+import cap
+from cap.cli._manifest import write_manifest
 from cap.data.loaders import LabeledDataset, TwoGroupDataset
 from cap.data.prompt_templates import PROMPT_TYPES, PromptTemplate
-from cap.utils.reproducibility import set_seed, resolve_device
-from cap.cli._manifest import write_manifest
-import cap
+from cap.utils.reproducibility import resolve_device, set_seed
 
 
 def capture(
@@ -20,25 +19,25 @@ def capture(
         ..., "--output", help="Directory to write activations.h5, statistics.h5, manifest.json."
     ),
     # Single-file (label-split) input
-    data: Optional[Path] = typer.Option(None, "--data", help="CSV file with text + label columns."),
-    text_column: Optional[str] = typer.Option(
+    data: Path | None = typer.Option(None, "--data", help="CSV file with text + label columns."),
+    text_column: str | None = typer.Option(
         None, "--text-column", help="Column containing text to feed to the model."
     ),
-    label_column: Optional[str] = typer.Option(
+    label_column: str | None = typer.Option(
         None, "--label-column", help="Binary label column (used with --data)."
     ),
     # Two-file input
-    group_a: Optional[Path] = typer.Option(
+    group_a: Path | None = typer.Option(
         None, "--group-a", help="CSV file for group A (used with --group-b)."
     ),
-    group_b: Optional[Path] = typer.Option(
+    group_b: Path | None = typer.Option(
         None, "--group-b", help="CSV file for group B (used with --group-a)."
     ),
     # Prompt
-    type_: Optional[str] = typer.Option(
+    type_: str | None = typer.Option(
         None, "--type", help=f"Prompt template type: {list(PROMPT_TYPES.keys())}"
     ),
-    prompt: Optional[str] = typer.Option(
+    prompt: str | None = typer.Option(
         None, "--prompt", help="Custom prompt template string containing {text}."
     ),
     # Sampling
