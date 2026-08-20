@@ -3,6 +3,30 @@
 All notable changes to this project are documented here. Versions from `0.1.0`
 onward track the open-source restructure of the codebase.
 
+## 1.0.1 — 2026-08-20
+
+Maintenance release: bug fixes, CLI ergonomics, and a reproducible lint toolchain.
+
+- Fixed HellaSwag evaluation: the benchmark now loads from `Rowan/hellaswag`, as
+  the bare `hellaswag` dataset id no longer resolves on the Hugging Face Hub.
+- Fixed non-ASCII rendering in the stats viewer, which was missing a
+  `<meta charset="UTF-8">` declaration.
+- `cap visualize --experiments` now accepts comma-separated paths
+  (`--experiments A,B`) alongside the repeated flag, matching `--downsample`.
+  Previously `A,B` was read as a single path and reported as "requires at least
+  two" even though two were given.
+- `cap visualize --mode similarity` now reports a clear error when an experiment
+  directory has no `statistics.h5`, instead of raising `AttributeError`.
+- Fixed mutable list defaults on `PatchExperiment.run()`, which were shared
+  across calls.
+- Documented steering: a new Concepts → Steering section, and `cap patch --scale`
+  now explains ablation (`0.0`) versus steering (a factor near `1`).
+- Reframed the README and docs around contrastive activation patching for any
+  target behaviour; faithfulness and factuality are the running example rather
+  than the tool's purpose.
+- Pinned ruff and declared the lint rule set explicitly, so a ruff release can no
+  longer change what CI enforces.
+
 ## 1.0.0 — 2026-07-03
 
 First stable release.
