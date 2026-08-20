@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, "thesis/*", "code-restructure"]
+    branches: [main]
   pull_request:
     branches: [main]
 

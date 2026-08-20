@@ -1,13 +1,15 @@
 # CAP — Contrastive Activation Patching
 
-**Which neurons handle faithfulness differently across languages?**
+**Which neurons does your LLM use for a given behaviour — and how do they differ across languages?**
 
-CAP is a research pipeline for locating and patching the neurons an LLM uses to judge
-factuality and faithfulness. Give it two contrastive groups of text — *faithful* vs.
-*unfaithful*, or the same prompt in English vs. Mandarin — and it captures per-layer
+CAP is a research pipeline built on **contrastive activation patching**. Give it two
+contrastive groups of text — *faithful* vs. *unfaithful* statements, correct vs. incorrect
+predictions, or the same prompt in English vs. Mandarin — and it captures per-layer
 activations, runs a **Welch t-test with FDR correction** to find the neurons that separate
-the groups, **patches** (scales/ablates) them to test whether they matter on a benchmark,
-and renders interactive HTML viewers for inspection and cross-language comparison.
+the groups, **patches** them (ablate to test causality, or **scale to steer** the
+behaviour) and re-evaluates on a benchmark, and renders interactive HTML viewers for
+inspection and cross-language comparison. Faithfulness and factuality are the running
+example throughout — they are what the bundled data supports — but any binary contrast works.
 
 > Tested on Qwen3-8B / Qwen3-14B across English, Egyptian Arabic, Mandarin Chinese,
 > German, and Spanish (WMT MIST). The SLURM templates under `examples/slurm/` are

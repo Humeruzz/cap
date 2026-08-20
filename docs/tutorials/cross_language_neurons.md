@@ -1,8 +1,9 @@
 # Cross-Language Neurons
 
-CAP's headline question is *which neurons handle faithfulness differently across
-languages?* You answer it by running the **same contrast** in several languages, then
-comparing the resulting neuron signatures with the similarity viewer.
+A core use of CAP is asking *which neurons handle a given behaviour differently across
+languages?* This tutorial uses **faithfulness** as the example behaviour: you run the
+**same contrast** in several languages, then compare the resulting neuron signatures with
+the similarity viewer.
 
 ## 1. Capture each language into its own directory
 
@@ -39,7 +40,7 @@ Point `cap visualize --mode similarity` at two or more experiment directories:
 
 ```bash
 cap visualize --mode similarity \
-  --experiments runs/english runs/egyptian_arabic runs/mandarin_chinese \
+  --experiments runs/english --experiments runs/egyptian_arabic --experiments runs/mandarin_chinese \
   --output runs/similarity
 ```
 

@@ -396,6 +396,7 @@ def create_interactive_viewer(
     html_content = f"""<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Interactive Statistical Map</title>
     <style>
         body {{

@@ -153,7 +153,7 @@ class Evaluator:
         if self.verbose:
             print(f"  Evaluating HellaSwag ({n_samples} samples)...")
 
-        dataset = load_dataset("hellaswag", split="validation")
+        dataset = load_dataset("Rowan/hellaswag", split="validation")
         dataset = dataset.shuffle(seed=42).select(range(min(n_samples, len(dataset))))
 
         correct = 0

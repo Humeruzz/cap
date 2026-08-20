@@ -1,18 +1,21 @@
 # CAP — Contrastive Activation Patching
 
-**Which neurons in your LLM handle faithfulness differently across languages?**
+**Which neurons does your LLM use for a given behaviour — and how do they differ across languages?**
 
-CAP is a research pipeline for **locating and patching** the neurons a language model
-uses to judge factuality and faithfulness. You give it two contrastive groups of
-text — for example *faithful* vs. *unfaithful* statements, or the *same* prompt in
-English vs. Mandarin — and CAP:
+CAP is a research pipeline built on **contrastive activation patching**: it **locates,
+compares, patches, and steers** the neurons a language model uses for a target behaviour.
+You give it two contrastive groups of text — for example *faithful* vs. *unfaithful*
+statements, correct vs. incorrect predictions, or the *same* prompt in English vs.
+Mandarin — and CAP:
 
 1. **captures** per-layer activations for both groups,
 2. runs a **Welch t-test with FDR correction** to find neurons that separate the groups,
-3. **patches** (scales or ablates) those neurons and re-evaluates on a benchmark, and
+3. **patches** those neurons — ablate to test causality, or **scale to steer** the behaviour — and re-evaluates on a benchmark, and
 4. renders **interactive HTML viewers** for inspection and cross-language comparison.
 
-The whole thing runs from one CLI (`cap`) or from the Python API.
+Faithfulness and factuality are the running example throughout these docs (the bundled data
+supports them), but any binary contrast works. The whole thing runs from one CLI (`cap`) or
+from the Python API.
 
 ## One command
 

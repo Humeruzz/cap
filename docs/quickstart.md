@@ -54,6 +54,10 @@ run it separately once you have activations (built-in benchmarks need the `[lm-e
 cap --device cpu patch --experiment runs/quickstart --benchmark hellaswag --n-eval-samples 20
 ```
 
+That ablates the selected neurons (`--scale 0.0`, the default) to test whether they matter.
+Pass a factor near `1` instead — e.g. `--scale 1.1` — to **steer** the behaviour rather than
+ablate it; see [Concepts → Steering](concepts.md#steering).
+
 ## 3. The same thing in Python
 
 The CLI is a thin wrapper over the public API. Here is the capture + statistics half:

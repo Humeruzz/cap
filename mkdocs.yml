@@ -1,16 +1,10 @@
 site_name: CAP — Contrastive Activation Patching
-site_description: Locate and patch language-specific and faithfulness-related neurons in LLMs.
+site_description: Locate, compare, patch, and steer the neurons an LLM uses for a target behaviour, across languages.
 
 # mkdocs.yml lives at the repo root (not under docs/): MkDocs forbids docs_dir from
 # being the config file's own directory, and mkdocstrings resolves `paths: [src]`
 # relative to this file, so `src/` only works from the root.
 docs_dir: docs
-
-# docs/ also holds a local superpowers/ skill library and a stray patching_summary.csv
-# that are not part of the site; keep them out so `mkdocs build --strict` stays clean.
-exclude_docs: |
-  superpowers/
-  patching_summary.csv
 
 theme:
   name: material

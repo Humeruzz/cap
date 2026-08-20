@@ -1,3 +1,4 @@
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -6,36 +7,35 @@ __pycache__/
 env/
 venv/
 .venv
+
+# Model weights & large binaries
+models/
+*.bin
+*.safetensors
+*.h5
+*.pkl
+*.pdf
+
+# Run outputs, viewers, manifests
+runs/
+out/
 viz/
 viz_*/
-*.pkl
+*.html
+*.json
+
+# Media
 *.gif
 *.mp4
 *.png
+
+# Editors / OS
 .vscode/
 .idea/
 *.swp
 *.swo
 .DS_Store
 .cache/
-models/
-*.bin
-*.safetensors
-*.h5
-checkpoint.json
-*_experiments/
-out/
-dataset_prep/raw
-*.json
-*.html
-runs/
-old_runs/
-texts/
-thesis_text/
-texput.log
-*.bbl
-*.blg
-docs/superpowers/
 
 # Build artifacts
 *.egg-info/
@@ -49,8 +49,3 @@ site/
 .pytest_cache/
 .coverage
 htmlcov/
-
-# Dev artifacts
-Descriptions/
-dataset_prep/
-STEERING.md

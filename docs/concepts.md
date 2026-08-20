@@ -66,6 +66,21 @@ supply your own via `--evaluator module::ClassName` — see
 [Bring Your Own Data](tutorials/bring_your_own_data.md) and the
 [Data API](api/data.md).
 
+## Steering
+
+`--scale` is a **multiplicative knob**, not just an on/off switch, so the same `cap patch`
+step doubles as a **training-free steering intervention**:
+
+- `--scale 0.0` — ablate the selected neurons (the causality test above).
+- `--scale 1.0` — leave them untouched (the model's baseline).
+- `0 < --scale < 1` dampens the behaviour; `--scale > 1` amplifies it.
+
+Pick a gentle factor (say `--scale 1.05`) and read the benchmark delta to *steer* the
+target behaviour up or down with no fine-tuning — the discovered neurons become a control
+surface. The effect is not guaranteed to transfer: a factor that helps one language, task,
+or model can hurt another, so **sweep `--scale`** and compare the benchmark movement rather
+than assuming a fixed value generalises.
+
 ## Visualization
 
 `cap visualize --mode stats` renders an interactive per-layer heatmap of the statistics.
