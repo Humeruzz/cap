@@ -1,5 +1,9 @@
 # CAP — Contrastive Activation Patching
 
+> **Demo paper:** Semenikhin, Frey, Dušek, Flek, Schmidtová. *CAP: Contrastive Activation Patching for Locating, Comparing, and Steering Neurons in Multilingual LLMs.* INLG 2026. [paper](paper/cap-inlg2026.pdf)
+>
+> **Screencast:** https://youtu.be/wYzzh_iHKm8
+
 **Which neurons does your LLM use for a given behaviour — and how do they differ across languages?**
 
 CAP is a research pipeline built on **contrastive activation patching**. Give it two
@@ -32,6 +36,10 @@ neurons across many layers), and writes an interactive stats viewer into `runs/e
 32- and 64-resolution heatmaps you can toggle in the browser). Full walkthrough:
 [docs/quickstart.md](docs/quickstart.md).
 
+Rerunning a command into the same `--output` skips the capture if matching
+`activations.h5` and `statistics.h5` are already there; use a fresh directory when you
+change the model, prompt, or data.
+
 Global flags (`--device`, `--seed`, `--trust-remote-code`) go **before** the subcommand.
 
 ## Installation
@@ -42,7 +50,7 @@ Requires **Python ≥ 3.10** and PyTorch 2.x. Installed from a checkout (not PyP
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .                 # core
-pip install -e ".[lm-eval]"      # + GSM8K / MMLU / HellaSwag benchmarks
+pip install -e ".[lm-eval]"      # + GSM8K / MMLU / MMMLU / HellaSwag benchmarks
 pip install -e ".[docs]"         # + documentation toolchain
 ```
 
@@ -68,7 +76,19 @@ mkdocs serve      # http://127.0.0.1:8000
 
 ## Citation
 
-If you use CAP, please cite the repository:
+If you use CAP, please cite the demo paper:
+
+```bibtex
+@inproceedings{semenikhin-etal-2026-cap,
+  title     = {{CAP}: Contrastive Activation Patching for Locating, Comparing, and Steering Neurons in Multilingual {LLM}s},
+  author    = {Semenikhin, Aleksandr and Frey, Markus and Du{\v{s}}ek, Ond{\v{r}}ej and Flek, Lucie and Schmidtov{\'a}, Patr{\'\i}cia},
+  booktitle = {Proceedings of the 19th International Natural Language Generation Conference},
+  year      = {2026},
+  address   = {Utrecht, the Netherlands}
+}
+```
+
+To cite the software itself:
 
 ```bibtex
 @software{cap,

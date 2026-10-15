@@ -19,7 +19,7 @@ def patch(
     benchmark: str | None = typer.Option(
         None,
         "--benchmark",
-        help="Built-in benchmark (see BUILTIN_EVALUATORS): gsm8k, mmlu, hellaswag.",
+        help="Built-in benchmark (see BUILTIN_EVALUATORS): gsm8k, mmlu, mmmlu, hellaswag.",
     ),
     d_threshold: float = typer.Option(1.0, "--d-threshold"),
     std_threshold: float = typer.Option(0.1, "--std-threshold"),

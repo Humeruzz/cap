@@ -597,12 +597,20 @@ class _BenchmarkEvaluator:
     ) -> dict[str, float]:
         evaluator = Evaluator(model=model, tokenizer=tokenizer, device=device)
         method = getattr(evaluator, f"evaluate_{self._benchmark}")
-        return {self._benchmark: method(n_samples=n_samples, **self._method_kwargs)}
+        score = method(n_samples=n_samples, **self._method_kwargs)
+        if isinstance(score, dict):
+            # Per-language benchmarks (mmmlu): the mean goes under the benchmark name and each
+            # language under "<benchmark>_<lang>", the same keys BaseExperiment.evaluate uses.
+            results = {self._benchmark: sum(score.values()) / len(score) if score else 0.0}
+            results.update({f"{self._benchmark}_{lang}": s for lang, s in score.items()})
+            return results
+        return {self._benchmark: score}
 
 
 # Name → zero-arg factory. Add a benchmark by registering a factory here; no dispatch edits.
 BUILTIN_EVALUATORS = {
     "gsm8k": lambda: _BenchmarkEvaluator("gsm8k", n_shots=4),
     "mmlu": lambda: _BenchmarkEvaluator("mmlu", n_shots=5),
+    "mmmlu": lambda: _BenchmarkEvaluator("mmmlu", n_shots=5),
     "hellaswag": lambda: _BenchmarkEvaluator("hellaswag"),
 }

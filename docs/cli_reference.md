@@ -54,7 +54,7 @@ Select significant neurons, scale/ablate them, and evaluate on a benchmark.
 |---|---|---|
 | `--experiment PATH` | *required* | Experiment directory from `cap capture`. |
 | `--evaluator TEXT` | — | Custom evaluator as `module::ClassName`. |
-| `--benchmark TEXT` | — | Built-in benchmark: `gsm8k`, `mmlu`, `hellaswag`. |
+| `--benchmark TEXT` | — | Built-in benchmark: `gsm8k`, `mmlu`, `mmmlu`, `hellaswag`. `mmmlu` is multilingual MMLU over EN, AR_XY, ZH_CN, DE_DE and ES_ES; it reports the mean as `mmmlu` plus one `mmmlu_<lang>` score per language. |
 | `--d-threshold FLOAT` | `1.0` | Minimum Cohen's d for a neuron to be selected. |
 | `--std-threshold FLOAT` | `0.1` | Minimum pooled std for a neuron to be selected. |
 | `--scale FLOAT` | `0.0` | Multiplicative factor on selected neurons: `0.0` ablates, `1.0` leaves them unchanged, `>1` amplifies. Use `0.0` for a causal ablation test, or a value near `1` (e.g. `1.05`) to **steer** the behaviour — see [Concepts → Steering](concepts.md#steering). |

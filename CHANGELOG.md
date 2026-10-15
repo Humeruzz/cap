@@ -3,6 +3,22 @@
 All notable changes to this project are documented here. Versions from `0.1.0`
 onward track the open-source restructure of the codebase.
 
+## 1.0.2 - 2026-10-15
+
+Release accompanying the INLG 2026 system demo paper.
+
+- `cap patch --benchmark` now accepts `mmmlu`: multilingual MMLU over EN, AR_XY, ZH_CN,
+  DE_DE and ES_ES. It reports the mean as `mmmlu` plus one `mmmlu_<lang>` score per
+  language, the same keys `BaseExperiment.evaluate` produces.
+- Added the demo paper under `paper/`, linked with the screencast at the top of the
+  README.
+- The README and `CITATION.cff` now ask users to cite the demo paper first; the software
+  entry stays as the secondary citation.
+- Fixed the `CITATION.cff` title, which still carried the old "for Multilingual
+  Faithfulness Analysis" subtitle.
+- Documented resume behaviour: which stages a rerun into the same output directory skips,
+  and which always recompute.
+
 ## 1.0.1 — 2026-08-20
 
 Maintenance release: bug fixes, CLI ergonomics, and a reproducible lint toolchain.
