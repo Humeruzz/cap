@@ -30,8 +30,8 @@ cap --help
 
 ## Optional extras
 
-Benchmark evaluation (GSM8K / MMLU / HellaSwag via `lm-eval`) is an optional extra so
-the core install stays light:
+Benchmark evaluation (GSM8K / MMLU / MMMLU / HellaSwag via `lm-eval`) is an optional
+extra so the core install stays light:
 
 ```bash
 pip install -e ".[lm-eval]"

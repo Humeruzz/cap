@@ -66,7 +66,7 @@ behaviour. `cap patch` tests causality: it selects neurons by effect size
 a benchmark. If ablating the discovered neurons moves the benchmark score, they were doing
 real work.
 
-Built-in benchmarks are `gsm8k`, `mmlu`, and `hellaswag` (require the `lm-eval` extra), or
+Built-in benchmarks are `gsm8k`, `mmlu`, `mmmlu`, and `hellaswag` (require the `lm-eval` extra), or
 supply your own via `--evaluator module::ClassName` — see
 [Bring Your Own Data](tutorials/bring_your_own_data.md) and the
 [Data API](api/data.md).

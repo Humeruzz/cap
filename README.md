@@ -50,7 +50,7 @@ Requires **Python ≥ 3.10** and PyTorch 2.x. Installed from a checkout (not PyP
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .                 # core
-pip install -e ".[lm-eval]"      # + GSM8K / MMLU / HellaSwag benchmarks
+pip install -e ".[lm-eval]"      # + GSM8K / MMLU / MMMLU / HellaSwag benchmarks
 pip install -e ".[docs]"         # + documentation toolchain
 ```
 
