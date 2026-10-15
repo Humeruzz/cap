@@ -72,7 +72,19 @@ mkdocs serve      # http://127.0.0.1:8000
 
 ## Citation
 
-If you use CAP, please cite the repository:
+If you use CAP, please cite the demo paper:
+
+```bibtex
+@inproceedings{semenikhin-etal-2026-cap,
+  title     = {{CAP}: Contrastive Activation Patching for Locating, Comparing, and Steering Neurons in Multilingual {LLM}s},
+  author    = {Semenikhin, Aleksandr and Frey, Markus and Du{\v{s}}ek, Ond{\v{r}}ej and Flek, Lucie and Schmidtov{\'a}, Patr{\'\i}cia},
+  booktitle = {Proceedings of the 19th International Natural Language Generation Conference},
+  year      = {2026},
+  address   = {Utrecht, the Netherlands}
+}
+```
+
+To cite the software itself:
 
 ```bibtex
 @software{cap,

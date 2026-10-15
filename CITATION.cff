@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: "CAP: Contrastive Activation Patching for Multilingual Faithfulness Analysis"
+title: "CAP: Contrastive Activation Patching"
 version: 1.0.1
 date-released: 2026-08-20
 authors:
@@ -9,3 +9,23 @@ authors:
     given-names: Aleksandr
 license: MIT
 repository-code: "https://github.com/Humeruzz/cap"
+preferred-citation:
+  type: conference-paper
+  title: "CAP: Contrastive Activation Patching for Locating, Comparing, and Steering Neurons in Multilingual LLMs"
+  authors:
+    - family-names: Semenikhin
+      given-names: Aleksandr
+    - family-names: Frey
+      given-names: Markus
+    - family-names: Dušek
+      given-names: Ondřej
+    - family-names: Flek
+      given-names: Lucie
+    - family-names: Schmidtová
+      given-names: Patrícia
+  collection-title: "Proceedings of the 19th International Natural Language Generation Conference"
+  conference:
+    name: "19th International Natural Language Generation Conference (INLG 2026)"
+    city: Utrecht
+    country: NL
+  year: 2026
