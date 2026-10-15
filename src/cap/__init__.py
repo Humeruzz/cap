@@ -1,4 +1,4 @@
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 from cap.core.capture import ActivationCapture
 from cap.core.evaluation import BUILTIN_EVALUATORS, CSVEvaluator, EvaluatorProtocol
