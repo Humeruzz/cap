@@ -20,6 +20,11 @@ flowchart LR
 `cap stats` and `cap patch` are separate steps you invoke when you need to recompute
 statistics with a different test, or validate the discovered neurons on a benchmark.
 
+Resume is per stage, not mid-stage: `cap capture` (and the capture step of `cap run`) is
+skipped when the output directory already holds activations with the same sample count,
+`cap patch` reuses the baseline and any threshold and scale combination already saved in
+`patching_results/`, and `cap stats` and `cap visualize` always recompute.
+
 ## Contrastive groups
 
 Everything in CAP is built on **two groups of text** whose activations you want to

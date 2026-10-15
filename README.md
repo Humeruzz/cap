@@ -36,6 +36,10 @@ neurons across many layers), and writes an interactive stats viewer into `runs/e
 32- and 64-resolution heatmaps you can toggle in the browser). Full walkthrough:
 [docs/quickstart.md](docs/quickstart.md).
 
+Rerunning a command into the same `--output` skips the capture if matching
+`activations.h5` and `statistics.h5` are already there; use a fresh directory when you
+change the model, prompt, or data.
+
 Global flags (`--device`, `--seed`, `--trust-remote-code`) go **before** the subcommand.
 
 ## Installation
