@@ -1,5 +1,9 @@
 # CAP — Contrastive Activation Patching
 
+> **Demo paper:** Semenikhin, Frey, Dušek, Flek, Schmidtová. *CAP: Contrastive Activation Patching for Locating, Comparing, and Steering Neurons in Multilingual LLMs.* INLG 2026. [paper](paper/cap-inlg2026.pdf)
+>
+> **Screencast:** https://youtu.be/wYzzh_iHKm8
+
 **Which neurons does your LLM use for a given behaviour — and how do they differ across languages?**
 
 CAP is a research pipeline built on **contrastive activation patching**. Give it two
