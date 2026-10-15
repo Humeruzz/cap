@@ -49,3 +49,6 @@ site/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Local notes
+FIXES.md
